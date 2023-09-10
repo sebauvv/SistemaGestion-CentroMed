@@ -1,13 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package usuarios;
 
-/**
- *
- * @author forevv
- */
-public class Medico {
+public class Medico extends Persona{
+    String especializacion;
+
+    public Medico(String nombre, String apellido, int edad, String username, String password, int rol,
+            String especializacion) {
+        super(nombre, apellido, edad, username, password, rol);
+        this.especializacion = especializacion;
+    }
+
+    public String getEspecializacion() {
+        return especializacion;
+    }
+
+    public void setEspecializacion(String especializacion) {
+        this.especializacion = especializacion;
+    }
+
+    
     
 }

@@ -2,12 +2,23 @@ package usuarios;
 
 
 public class Persona {
-    public String nombre;
+    private String nombre;
     public String apellido;
     public int edad;
     public String username;
     public String password; //Encriptarla luego
     public int rol; // 1 -> Paciente | 2 -> Medico | 3 -> Admin
+
+
+
+    public Persona(String nombre, String apellido, int edad, String username, String password, int rol) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.username = username;
+        this.password = password;
+        this.rol = rol;
+    }
 
     public String getNombre() {
         return nombre;

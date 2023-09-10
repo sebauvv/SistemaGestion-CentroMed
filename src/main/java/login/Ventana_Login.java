@@ -1,37 +1,56 @@
 package login;
 
 import java.util.Scanner;
+
+//import usuarios.Medico;
 import usuarios.Persona;
-import usuarios.*;
 
 public class Ventana_Login {
+    static int var;
+    public static String nameAux, apellidoAux, usernameAux, passwordAux;
+    public static int edadAux;
     Scanner input = new Scanner(System.in);
-    public String menu_login() {
+
+    public void menu_inicio() {
         String aux = "";
-        aux += "\nMenu de inicio de sesión\n";
-        aux += "============================\n";
+        aux += "\nMenu de inicio\n";
+        aux += "===================\n";
         aux += "Iniciar sesión como...\n";
         aux += "1. Paciente\n";
-        aux += "2. Médico\n";
+        aux += "2. Medico\n";
         aux += "3. Administrador\n";
-        return aux;
+        System.out.println(aux);
     }
 
+
     public void menu_register(Persona p, String rol) {
-        System.out.println("Registrar " + rol +": " );
-        System.out.print("Nombres: ");
-        p.nombre = input.nextLine();
-        System.out.print("Apellidos: ");
-        p.apellido = input.nextLine();
-        System.out.print("Edad: ");
-        p.edad = input.nextInt();
+        System.out.println("Registrar " + rol + ": ");
         System.out.println("===============");
+
+        System.out.print("Nombres: ");
+        nameAux = input.nextLine();
+        p.setNombre(nameAux);
+
+        System.out.print("Apellidos: ");
+        apellidoAux = input.nextLine();
+        p.setApellido(apellidoAux);
+
+        System.out.print("Edad: ");
+        var = Integer.parseInt(input.nextLine());
+        edadAux = var;
+        p.setEdad(edadAux);
+
+        System.out.println("===============");
+        // input.nextLine(); //buffer problem
+
         System.out.print("Nombre de usuario: ");
-        p.username = input.nextLine();
+        usernameAux = input.nextLine();
+        p.setUsername(usernameAux);
+
+        // contrasenia random gen
         System.out.print("Contrasenia: ");
-        p.password = input.nextLine();
+        passwordAux = input.nextLine();
+        p.setPassword(passwordAux);
 
     }
 }
-
-
