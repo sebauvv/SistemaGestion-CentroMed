@@ -1,5 +1,6 @@
 package login;
 
+import java.util.Random;
 import java.util.Scanner;
 
 //import usuarios.Medico;
@@ -24,6 +25,7 @@ public class Ventana_Login {
 
 
     public void menu_register(Persona p, String rol) {
+        Random rn = new Random();
         System.out.println("Registrar " + rol + ": ");
         System.out.println("===============");
 
@@ -52,5 +54,7 @@ public class Ventana_Login {
         passwordAux = input.nextLine();
         p.setPassword(passwordAux);
 
+        p.setId(rn.nextInt(999-100) + 100);
+        System.out.println("ID autogenerada: " + p.getId());
     }
 }

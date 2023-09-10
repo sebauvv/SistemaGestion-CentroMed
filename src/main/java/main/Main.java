@@ -15,6 +15,7 @@ public class Main {
     static int rol;
     static String seguir;
     static boolean flag, pass_p, pass_m;
+    static int id_aux;
     public static String nameAux, apellidoAux, usernameAux, passwordAux;
     public static int edadAux;
     static Scanner input = new Scanner(System.in);
@@ -32,8 +33,8 @@ public class Main {
         // List<Medico> m_list = new ArrayList<>();
 
 
-        arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
-        arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
+        arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
+        arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
 
         Ventana_Login vl = new Ventana_Login();
 
@@ -60,18 +61,6 @@ public class Main {
                     flag = true;
                 }
 
-                // }
-                // else if ((j == 0 && rol != 3) || pass_p == false ) {
-                //     System.out.println("No hay pacientes registrados.");
-                //     flag = false;
-                // }
-                // else if ((i == 0 && rol != 3) || pass_m == false) {
-                //     System.out.println("No hay medicos registrados.");
-                //     flag = false;
-                // }
-                // else {
-                //     flag = true;
-                // }
             } while ((flag  == false) || (rol < 1 || rol > 3));
 
             //StringBuilder: objeto mutable para pasar por referencia (las strings son inmutables aaaa)
@@ -80,13 +69,7 @@ public class Main {
 
             switch (rol) { 
                 case 1: //Paciente
-                    //System.out.println(j);
-                    // for(i = 0; i < j; i++) {
-                    //     System.out.println("Lista de usuarios y su contrasenia: ");
-                    //     System.out.println("Usuario: " + arrayPaciente[i].getUsername() + " Contrasenia: " + arrayPaciente[i].getPassword());
-                    //     System.out.println(" ");
-                    // }
-                    
+                
                     menu_login(sb1, sb2);
                     usernameAux = sb1.toString();
                     passwordAux = sb2.toString();
@@ -144,18 +127,19 @@ public class Main {
                 case 3: //admin
                     System.out.println("\nIngreso como Administrador.");
                     System.out.println("==========================");
-                    System.out.println("1. Registrar paciente");
-                    System.out.println("2. Registrar medico");
+                    System.out.println("1. Registrar paciente.");
+                    System.out.println("2. Registrar medico.");
+                    System.out.println("3. Buscar paciente por ID.");
                     //System.out.println("Mas por agregar...");
                     do{
                         System.out.print("\nOpcion: ");
                         var = Integer.parseInt(input.nextLine());
                         opc = var;
-                    } while (opc != 1 && opc !=2);
+                    } while (opc != 1 && opc !=2 && opc != 3);
                     
                     if (opc == 1) {
-                        arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
-                        arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
+                        arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
+                        arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
                         //System.out.println(j);
                         vl.menu_register(arrayPaciente[j], "paciente");
                         System.out.println("Paciente registrado exitosamente.");
@@ -163,13 +147,38 @@ public class Main {
 
                         j++;
                     } else if (opc == 2) {
-                        arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
-                        arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
+                        arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
+                        arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
                         vl.menu_register(arrayMedico[i], "medico");
                         System.out.println("Medico registrado exitosamente.");
                         //Test(arrayMedico[i]);
 
                         i++;
+                    } else if (opc == 3) { //buscar por ID
+                        System.out.print("Ingrese el ID del paciente: ");
+                        var = Integer.parseInt(input.nextLine());
+                        id_aux = var;
+                        for (int x = 0; x < j; x++) {
+                            if(arrayPaciente[x].getId() == id_aux) {
+                                k = x;
+                                flag = true;
+                            }
+                            else {
+                                flag = false;
+                            }
+                        }
+                
+                        if(flag) {
+                            System.out.println("Paciente encontrado.");
+                            System.out.println("Nombre: " + arrayPaciente[k].getNombre());
+                            System.out.println("Apellido: " + arrayPaciente[k].getApellido());
+                            System.out.println("Edad: " + arrayPaciente[k].getEdad());
+                            System.out.println("Username: " + arrayPaciente[k].getUsername());
+                            System.out.println("Password: " + arrayPaciente[k].getPassword());
+                            System.out.println("ID: " + arrayPaciente[k].getId());
+                        } else {
+                            System.out.println("Paciente no encontrado.");
+                        }
                     }
                     break;
             }

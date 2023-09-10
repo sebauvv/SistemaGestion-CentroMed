@@ -8,16 +8,17 @@ public class Persona {
     public String username;
     public String password; //Encriptarla luego
     public int rol; // 1 -> Paciente | 2 -> Medico | 3 -> Admin
+    public int id;
 
 
-
-    public Persona(String nombre, String apellido, int edad, String username, String password, int rol) {
+    public Persona(String nombre, String apellido, int edad, String username, String password, int rol, int id) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.username = username;
         this.password = password;
         this.rol = rol;
+        this.id = id;
     }
 
     public String getNombre() {
@@ -57,5 +58,13 @@ public class Persona {
         this.rol = rol;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
 }
