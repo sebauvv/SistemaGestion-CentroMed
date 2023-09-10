@@ -148,6 +148,8 @@ public class Main {
                     } while (opc != 1 && opc !=2);
                     
                     if (opc == 1) {
+                        arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
+                        arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
                         //System.out.println(j);
                         vl.menu_register(arrayPaciente[j], "paciente");
                         System.out.println("Paciente registrado exitosamente.");
@@ -155,6 +157,8 @@ public class Main {
 
                         j++;
                     } else if (opc == 2) {
+                        arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
+                        arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test");
                         vl.menu_register(arrayMedico[i], "medico");
                         System.out.println("Medico registrado exitosamente.");
                         //Test(arrayMedico[i]);
