@@ -97,6 +97,9 @@ public class Main {
                             k = x;
                             flag = true;
                         }
+                        else{
+                            flag = false;
+                        }
                     }
             
                     if(flag) {
@@ -117,6 +120,9 @@ public class Main {
                         if(arrayMedico[x].getUsername().equals(usernameAux) && arrayMedico[x].getPassword().equals(passwordAux)) {
                             k = x;
                             flag = true;
+                        }
+                        else {
+                            flag = false;
                         }
                     }
             
