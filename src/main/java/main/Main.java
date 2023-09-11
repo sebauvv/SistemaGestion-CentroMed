@@ -1,13 +1,13 @@
 package main;
 
-import login.Ventana_Login;
+//import login.Ventana_Login;
 //import usuarios.Administrador;
 import usuarios.Medico;
 import usuarios.Paciente;
 import usuarios.Persona;
 
-import java.util.ArrayList;
-import java.util.List;
+import static login.Ventana_Login.*;
+
 import java.util.Scanner;
 
 public class Main {
@@ -29,38 +29,32 @@ public class Main {
         int j = 0; // j debe contener la canitdad de pacientes registrados actualmente
         int i = 0; // i debe contener la cantidad de medicos registrados actualmente
 
-        // List<Paciente> p_list = new ArrayList<>();
-        // List<Medico> m_list = new ArrayList<>();
-
-
         arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
         arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
 
-        Ventana_Login vl = new Ventana_Login();
-
         do{
-            vl.menu_inicio();
+            menu_inicio();
 
             do {
-                System.out.print("Opcion: ");
-                var = Integer.parseInt(input.nextLine());
-                rol = var;
-                if (pass_p == false && rol == 1) {
-                    System.out.println("No hay pacientes registrados.");
+                try {
+                    System.out.print("Opcion: ");
+                    var = Integer.parseInt(input.nextLine());
+                    rol = var;
+                    if (pass_p == false && rol == 1 && j == 0) {
+                        System.out.println("No hay pacientes registrados.");
+                        flag = false;
+                    }
+                    else if (pass_m == false && rol == 2 && i == 0) {
+                        System.out.println("No hay medicos registrados.");
+                        flag = false;
+                    }
+                    else {
+                        flag = true;
+                    }
+                } catch (NumberFormatException ex) {
+                    System.out.println("Opcion invalida.");
+                    flag = false;
                 }
-                else if (pass_m == false && rol == 2) {
-                    System.out.println("No hay medicos registrados.");
-                }
-                else if (j == 0 && rol == 1) {
-                    System.out.println("No hay pacientes registrados.");
-                }
-                else if (i == 0 && rol == 2) {
-                    System.out.println("No hay medicos registrados.");
-                }
-                else {
-                    flag = true;
-                }
-
             } while ((flag  == false) || (rol < 1 || rol > 3));
 
             //StringBuilder: objeto mutable para pasar por referencia (las strings son inmutables aaaa)
@@ -73,7 +67,6 @@ public class Main {
                     menu_login(sb1, sb2);
                     usernameAux = sb1.toString();
                     passwordAux = sb2.toString();
-                    //System.out.println(usernameAux + " " + passwordAux);
 
                     for (int x = 0; x < j; x++) {
                         if(arrayPaciente[x].getUsername().equals(usernameAux) && arrayPaciente[x].getPassword().equals(passwordAux)) {
@@ -90,9 +83,11 @@ public class Main {
                     } else {
                         System.out.println("Usuario o contrasenia incorrectos.");
                     }
+
                     /*
                      * Presentacion del horario de cita disponible para los pacientes
                      */
+
                     pass_p = true; // para que no se repita el menu de paciente
                     break;
 
@@ -117,6 +112,7 @@ public class Main {
 
                     System.out.println("\nIngreso como Medico.");
                     System.out.println("===============================");
+
                     /*
                      * Creacion del registro del paciente por el medico
                      * Programacion de las citas medicas
@@ -132,32 +128,41 @@ public class Main {
                     System.out.println("3. Buscar paciente por ID.");
                     //System.out.println("Mas por agregar...");
                     do{
-                        System.out.print("\nOpcion: ");
-                        var = Integer.parseInt(input.nextLine());
-                        opc = var;
-                    } while (opc != 1 && opc !=2 && opc != 3);
+                        try{
+                            System.out.print("\nOpcion: ");
+                            var = Integer.parseInt(input.nextLine());
+                            opc = var;
+                            flag = true;
+                        } catch (NumberFormatException ex) {
+                            System.out.println("Opcion invalida.");
+                            flag = false;
+                        }
+                    } while (opc != 1 && opc !=2 && opc != 3 && flag == false || opc >= 4 || opc <= 0);
                     
                     if (opc == 1) {
                         arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
                         arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
-                        //System.out.println(j);
-                        vl.menu_register(arrayPaciente[j], "paciente");
+                        menu_register(arrayPaciente[j], "paciente");
                         System.out.println("Paciente registrado exitosamente.");
-                        //Test(arrayPaciente[j]); 
 
                         j++;
                     } else if (opc == 2) {
                         arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
                         arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
-                        vl.menu_register(arrayMedico[i], "medico");
+                        menu_register(arrayMedico[i], "medico");
                         System.out.println("Medico registrado exitosamente.");
-                        //Test(arrayMedico[i]);
 
                         i++;
                     } else if (opc == 3) { //buscar por ID
-                        System.out.print("Ingrese el ID del paciente: ");
-                        var = Integer.parseInt(input.nextLine());
-                        id_aux = var;
+                        do{
+                            try {
+                                System.out.print("Ingrese el ID del paciente: ");
+                                var = Integer.parseInt(input.nextLine());
+                                id_aux = var;
+                            } catch (NumberFormatException ex) {
+                                System.out.println("ID invalido.");
+                            }
+                        } while( id_aux < 100 || id_aux >= 1000);
                         for (int x = 0; x < j; x++) {
                             if(arrayPaciente[x].getId() == id_aux) {
                                 k = x;
@@ -170,33 +175,25 @@ public class Main {
                 
                         if(flag) {
                             System.out.println("Paciente encontrado.");
-                            System.out.println("Nombre: " + arrayPaciente[k].getNombre());
-                            System.out.println("Apellido: " + arrayPaciente[k].getApellido());
-                            System.out.println("Edad: " + arrayPaciente[k].getEdad());
-                            System.out.println("Username: " + arrayPaciente[k].getUsername());
-                            System.out.println("Password: " + arrayPaciente[k].getPassword());
-                            System.out.println("ID: " + arrayPaciente[k].getId());
+                            show_persona(arrayPaciente[k]);
                         } else {
                             System.out.println("Paciente no encontrado.");
                         }
                     }
                     break;
             }
-            System.out.print("Desea continuar? (1. Si | 2. No): ");
-            var = Integer.parseInt(input.nextLine());  
+            do {
+                try{
+                    System.out.print("Desea continuar? (1. Si | 2. No): ");
+                    var = Integer.parseInt(input.nextLine());
+                    flag = true;
+                } catch (NumberFormatException ex) {
+                    System.out.println("Opcion invalida.");
+                    flag = false;
+                }
+            } while(var != 1 && var != 2 && flag == false || var >= 3 || var <= 0);
+            flag = false;
         } while (var == 1);
-    }
-
-    public static void Test(Persona p) {
-        try {
-            System.out.println(p.getNombre());
-            System.out.println(p.apellido);
-            System.out.println(p.edad);
-            System.out.println(p.username);
-            //System.out.println(p.contrasenia);
-        } catch (NullPointerException e) {
-            System.out.println("NullPointerException shown");
-        }
     }
 
     // Objeto StringBuilder para pasar 2 parametros Str por referencia (por alguna razon si lo deja con objetos)
@@ -207,11 +204,19 @@ public class Main {
         System.out.print("Nombre de usuario: ");
         usernameAux = input.nextLine();
         sb1.append(usernameAux);
-        //input.nextLine(); //buffer problem YA NO
 
         System.out.print("Contrasenia: ");
         passwordAux = input.nextLine();
         sb2.append(passwordAux);
+    }
+
+    public static void show_persona(Persona p) {
+        System.out.println("Nombre: " + p.getNombre());
+        System.out.println("Apellido: " + p.getApellido());
+        System.out.println("Edad: " + p.getEdad());
+        System.out.println("Username: " + p.getUsername());
+        System.out.println("Password: " + p.getPassword());
+        System.out.println("ID: " + p.getId());
     }
 }
 

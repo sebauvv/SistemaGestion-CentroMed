@@ -7,12 +7,13 @@ import java.util.Scanner;
 import usuarios.Persona;
 
 public class Ventana_Login {
-    static int var;
+    public static int var;
+    public static boolean flag;
     public static String nameAux, apellidoAux, usernameAux, passwordAux;
     public static int edadAux;
-    Scanner input = new Scanner(System.in);
+    static Scanner input = new Scanner(System.in);
 
-    public void menu_inicio() {
+    public static void menu_inicio() {
         String aux = "";
         aux += "\nMenu de inicio\n";
         aux += "===================\n";
@@ -24,7 +25,7 @@ public class Ventana_Login {
     }
 
 
-    public void menu_register(Persona p, String rol) {
+    public static void menu_register(Persona p, String rol) {
         Random rn = new Random();
         System.out.println("Registrar " + rol + ": ");
         System.out.println("===============");
@@ -37,9 +38,17 @@ public class Ventana_Login {
         apellidoAux = input.nextLine();
         p.setApellido(apellidoAux);
 
-        System.out.print("Edad: ");
-        var = Integer.parseInt(input.nextLine());
-        edadAux = var;
+        do{
+            try{
+                System.out.print("Edad: ");
+                var = Integer.parseInt(input.nextLine());
+                edadAux = var;
+                flag = true;
+            }catch(NumberFormatException e){
+                System.out.println("Ingrese un numero valido");
+                flag = false;
+            }
+        }while(var < 18 || var > 120 || !flag);
         p.setEdad(edadAux);
 
         System.out.println("===============");
