@@ -1,6 +1,5 @@
 package main;
 
-//import login.Ventana_Login;
 //import usuarios.Administrador;
 import usuarios.Medico;
 import usuarios.Paciente;
@@ -11,13 +10,14 @@ import static login.Ventana_Login.*;
 import java.util.Scanner;
 
 public class Main {
-    static int opc, var;
-    static int rol;
-    static String seguir;
-    static boolean flag, pass_p, pass_m;
-    static int id_aux;
+    static int opc, var, rol; 
+    // var: variable auxiliar para el try-catch | rol: rol del usuario | opc: opcion
+    static boolean flag, pass_p, pass_m; 
+    // flag: bandera para el try-catch | pass_p: bandera para el menu de paciente | pass_m: bandera para el menu de medico
     public static String nameAux, apellidoAux, usernameAux, passwordAux;
-    public static int edadAux;
+    // nameAux: nombre auxiliar | apellidoAux: apellido auxiliar | usernameAux: username auxiliar | passwordAux: password auxiliar
+    public static int edadAux, id_aux;
+    // edadAux: edad auxiliar | id_aux: id auxiliar
     static Scanner input = new Scanner(System.in);
     
 
@@ -29,8 +29,8 @@ public class Main {
         int j = 0; // j debe contener la canitdad de pacientes registrados actualmente
         int i = 0; // i debe contener la cantidad de medicos registrados actualmente
 
-        arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
-        arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
+        //arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
+        //arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
 
         do{
             menu_inicio();
@@ -38,8 +38,8 @@ public class Main {
             do {
                 try {
                     System.out.print("Opcion: ");
-                    var = Integer.parseInt(input.nextLine());
-                    rol = var;
+                    rol = Integer.parseInt(input.nextLine());
+
                     if (pass_p == false && rol == 1 && j == 0) {
                         System.out.println("No hay pacientes registrados.");
                         flag = false;
@@ -110,15 +110,13 @@ public class Main {
                         System.out.println("Usuario o contrasenia incorrectos.");
                     }
 
-                    System.out.println("\nIngreso como Medico.");
-                    System.out.println("===============================");
 
-                    /*
+                    /* Por agregar...
                      * Creacion del registro del paciente por el medico
                      * Programacion de las citas medicas
                      */
 
-                    pass_m = true; // para que no se repita el menu de medico
+                    pass_m = true; // Para que no se repita el menu de medico
                     break;
                 case 3: //admin
                     System.out.println("\nIngreso como Administrador.");
@@ -130,8 +128,8 @@ public class Main {
                     do{
                         try{
                             System.out.print("\nOpcion: ");
-                            var = Integer.parseInt(input.nextLine());
-                            opc = var;
+                            opc = Integer.parseInt(input.nextLine());
+                            //opc = var;
                             flag = true;
                         } catch (NumberFormatException ex) {
                             System.out.println("Opcion invalida.");
@@ -139,26 +137,27 @@ public class Main {
                         }
                     } while (opc != 1 && opc !=2 && opc != 3 && flag == false || opc >= 4 || opc <= 0);
                     
-                    if (opc == 1) {
+                    
+                    if (opc == 1) { //Registrar paciente
                         arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
                         arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
                         menu_register(arrayPaciente[j], "paciente");
                         System.out.println("Paciente registrado exitosamente.");
 
                         j++;
-                    } else if (opc == 2) {
+                    } else if (opc == 2) { //Registrar medico
                         arrayPaciente[j] = new Paciente(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
                         arrayMedico[i] = new Medico(nameAux, apellidoAux, edadAux, usernameAux, passwordAux, rol, "test", id_aux);
                         menu_register(arrayMedico[i], "medico");
                         System.out.println("Medico registrado exitosamente.");
 
                         i++;
-                    } else if (opc == 3) { //buscar por ID
+                    } else if (opc == 3) { //buscar paciente por ID
                         do{
                             try {
                                 System.out.print("Ingrese el ID del paciente: ");
-                                var = Integer.parseInt(input.nextLine());
-                                id_aux = var;
+                                id_aux = Integer.parseInt(input.nextLine());
+                                //id_aux = vr;
                             } catch (NumberFormatException ex) {
                                 System.out.println("ID invalido.");
                             }
@@ -193,6 +192,7 @@ public class Main {
                 }
             } while(var != 1 && var != 2 && flag == false || var >= 3 || var <= 0);
             flag = false;
+
         } while (var == 1);
     }
 
@@ -210,6 +210,7 @@ public class Main {
         sb2.append(passwordAux);
     }
 
+    // Mostrar datos del usuario
     public static void show_persona(Persona p) {
         System.out.println("Nombre: " + p.getNombre());
         System.out.println("Apellido: " + p.getApellido());
